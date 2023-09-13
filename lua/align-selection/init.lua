@@ -3,6 +3,19 @@ local M = {}
 ---@alias SelectionInfo { top: integer, bottom: integer, height: integer, center: integer }
 ---@alias WindowInfo { width: integer, height: integer }
 
+--- @return SelectionInfo
+local function getSelectionInfo()
+	local top = vim.fn.line('v')
+	local bottom = vim.fn.line('.')
+
+	return {
+		top = top,
+		bottom = bottom,
+		height = bottom - top,
+		center = (top + bottom) / 2
+	}
+end
+
 --- @return nil
 function M.center()
 	local selection_info = getSelectionInfo()
@@ -22,17 +35,5 @@ local function getWindowInfo()
 	}
 end
 
---- @return SelectionInfo
-local function getSelectionInfo()
-	local top = vim.fn.line('v')
-	local bottom = vim.fn.line('.')
-
-	return {
-		top = top,
-		bottom = bottom,
-		height = bottom - top,
-		center = (top + bottom) / 2
-	}
-end
 
 return M
