@@ -12,15 +12,15 @@ local function getSelectionInfo()
 		top = top,
 		bottom = bottom,
 		height = bottom - top,
-		center = (top + bottom) / 2
+		center = math.floor((top + bottom) / 2)
 	}
 end
 
 --- @return nil
 function M.center()
 	local selection_info = getSelectionInfo()
-
-	vim.fn.feedkeys('<ESC>' .. selection_info.center .. 'Gzzgv')
+	local keys = vim.api.nvim_replace_termcodes('<ESC>' .. selection_info.center .. 'Gzzgv', true, false, true)
+	vim.fn.feedkeys(keys, 'n')
 end
 
 --- @return WindowInfo
@@ -34,6 +34,5 @@ local function getWindowInfo()
 		height = height
 	}
 end
-
 
 return M
